@@ -20,4 +20,13 @@ type Config struct {
 	} `yaml:"autoUpdateModinfo"`
 
 	DstCliPort string `yaml:"dstCliPort"`
+
+	Master struct {
+		Enable   bool   `yaml:"enable"`
+		Pattern  string `yaml:"pattern"`
+		Ip       string `yaml:"ip"`
+		Port     string `yaml:"port"`
+		Password string `yaml:"password"`
+		Name     string `json:"name"`
+	} `yaml:"master"`
 }

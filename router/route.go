@@ -42,6 +42,8 @@ func NewRoute() *gin.Engine {
 
 	initBotRouter(router)
 
+	initMsRouter(router)
+
 	initStaticFile(app)
 
 	return app

@@ -8,10 +8,12 @@ import (
 	"dst-admin-go/config/global"
 	"dst-admin-go/mod"
 	"dst-admin-go/model"
+	"dst-admin-go/ms"
 	"dst-admin-go/schedule"
 	"dst-admin-go/service"
 	"dst-admin-go/utils/dstConfigUtils"
 	"dst-admin-go/utils/dstUtils"
+	"dst-admin-go/utils/systemUtils"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/glebarez/sqlite"
@@ -41,6 +43,8 @@ func Init() {
 	initUpdateModinfos()
 
 	InitSnapshotBackup()
+
+	InitMs()
 }
 
 func initDB() {
@@ -188,10 +192,24 @@ func InitSnapshotBackup() {
 	go func() {
 		defer func() {
 			if r := recover(); r != nil {
-				log.Println(">>>>>>>>>>>>>>>")
-				log.Println(r)
+				log.Println("快照备份error: ", r)
 			}
 		}()
 		backupService.ScheduleBackupSnapshots()
+	}()
+}
+
+func InitMs() {
+	go func() {
+		if global.Config.Master.Port == "" {
+			global.Config.Master.Port = ":50051"
+		}
+		if global.Config.Master.Pattern == "Master" {
+			ms.Server = ms.NewServer(global.Config.Master.Port)
+		}
+		if global.Config.Master.Pattern == "Slave" {
+			ip, _ := systemUtils.GetPublicIP()
+			ms.StartClient(global.Config.Master.Ip+":"+global.Config.Master.Port, ip+" "+global.Config.Master.Name)
+		}
 	}()
 }

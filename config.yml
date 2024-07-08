@@ -1,6 +1,10 @@
 #启动端口
 port: 8082
-dstCliPort: 8102
+master:
+  port: "50051"
+  ip: "127.0.0.1"
+  pattern: "Master"
+  name: "张三"
 #数据库
 database: dst-db
 #自动检测 单位都是 分钟
