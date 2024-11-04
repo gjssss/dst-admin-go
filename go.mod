@@ -4,6 +4,8 @@ go 1.19
 
 require (
 	github.com/gin-contrib/sessions v1.0.1
+	github.com/bwmarrin/discordgo v0.27.1
+	github.com/gin-contrib/gzip v1.0.1
 	github.com/gin-gonic/gin v1.9.1
 	github.com/glebarez/sqlite v1.8.0
 	github.com/go-ini/ini v1.67.0

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkgo_manager_web=self.webpackChunkgo_manager_web||[]).push([[4870],{64870:(e,a,s)=>{s.r(a)}}]);
